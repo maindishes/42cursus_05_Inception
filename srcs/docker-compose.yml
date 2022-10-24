@@ -11,8 +11,14 @@ services:
     # protocol: tcp      ## 포트 프로토콜
     expose:
       - 9000
-    volume:
-      - test_volume: var/www
+    env_file:
+      - .env
+    volumes:
+      - test_volume:/var/www/html
 
-volume:
+volumes:
   test_volume:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/junyopar/data/wordpress
