@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   nginx:
-    # images: nginx
+    images: nginx
     container_name: nginx
     build: ./requirements/nginx/
     ports:
@@ -11,8 +11,6 @@ services:
     # published: 8080    ## 호스트OS에서 공개할 포트
     # protocol: tcp      ## 포트 프로토콜
 
-    # expose:
-    #   - 9000
     env_file:
       - .env
     volumes:
@@ -21,15 +19,16 @@ services:
       - c_network
   # wordpress:
   # 
-  # mariadb:
-  #   # images: mariadb
-  #   container_name: mariadb
-  #   build: ./requirements/mariadb/
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - c_network
-  
+  mariadb:
+    images: mariadb
+    container_name: mariadb
+    build: ./requirements/mariadb/
+    env_file:
+      - .env
+    networks:
+      - c_network
+    volumes:
+      - db:/var/lib/mysql
     
 
 volumes:
@@ -38,6 +37,11 @@ volumes:
       type: none
       o: bind
       device: /home/junyopar/data/wordpress
+  db:
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/junyopar/data/db
 
 networks:
   c_network: {}
