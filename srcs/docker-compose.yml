@@ -19,16 +19,16 @@ services:
       - wp:/var/www/html
     networks:
       - c_network
-  wordpress:
+  # wordpress:
   # 
-  mariadb:
-    # images: mariadb
-    container_name: mariadb
-    build: ./requirements/mariadb/
-    env_file:
-      - .env
-    networks:
-      - c_network
+  # mariadb:
+  #   # images: mariadb
+  #   container_name: mariadb
+  #   build: ./requirements/mariadb/
+  #   env_file:
+  #     - .env
+  #   networks:
+  #     - c_network
   
     
 
@@ -37,7 +37,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /$(HOME)/junyopar/data/wordpress
+      device: /home/junyopar/data/wordpress
 
 networks:
   c_network: {}
