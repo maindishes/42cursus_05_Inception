@@ -7,13 +7,16 @@ RUN apt-get update
 RUN apt-get -y install mariadb-server
 
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-COPY ./tools/ssl.sh /tmp/
+COPY ./tools/mysql.sql /tmp/
+COPY ./tools/mariadb_setup.sh /tmp/
 
 EXPOSE 3306
 
-RUN chmod +x /tmp/ssl.sh
+RUN chmod +x /tmp/mariadb_setup.sh
 
-ENTRYPOINT [ "/tmp/ssl.sh" ]
+ENTRYPOINT [ "/tmp/mariadb_setup.sh" ]
 # ENTRYPOINT ["/bin/bash"]
 # CMD ["/bin/bash"]
-CMD [ "nginx", "-g", "daemon off;" ]
+
+CMD ["mysqld"]
+#mysqld 는 mysql 이 멈춰있어야 된다.
