@@ -2,9 +2,9 @@ version: "3.9"
 
 services:
   nginx:
-    images: nginx
-    container_name: nginx
     build: ./requirements/nginx/
+    container_name: nginx
+    # images: nginx
     ports:
       - "443:443"
     # - target: 8080       ## 컨테이너 내부 포트
@@ -17,31 +17,39 @@ services:
       - wp:/var/www/html
     networks:
       - c_network
-  # wordpress:
-  # 
+
+  wordpress:
+    build: ./requirements/wordpress/
+    container_name: wordpress
+    # images: wordpress
+    env_file:
+      - .env
+    networks:
+      - c_network
+    volumes:
+      - wp:var/www/wordpress
   mariadb:
-    images: mariadb
-    container_name: mariadb
     build: ./requirements/mariadb/
+    container_name: mariadb
+    # images: mariadb
     env_file:
       - .env
     networks:
       - c_network
     volumes:
       - db:/var/lib/mysql
-    
 
 volumes:
   wp:
     driver_opts:
       type: none
       o: bind
-      device: /home/junyopar/data/wordpress
+      device: $HOME/data/wordpress
   db:
     driver_opts:
       type: none
       o: bind
-      device: /home/junyopar/data/db
+      device: $HOME/data/db
 
 networks:
   c_network: {}
