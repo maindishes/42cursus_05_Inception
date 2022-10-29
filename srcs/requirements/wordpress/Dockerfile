@@ -4,18 +4,20 @@ LABEL maintainer="junyopar"
 LABEL email="42.4.junyopar@gmail.com"
 
 RUN apt-get update
-RUN apt-get install -y curl
+RUN apt-get install -y curl sudo php-fpm php-mysql
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-RUN apt-get install -y php-fpm php-mysql
+RUN mv wp-cli.phar /usr/local/bin/wp
+RUN chmod +x /usr/local/bin/wp
+RUN mkdir -p /var/www/html/wordpress
 
-COPY ./conf/nginx.conf /etc/nginx/sites-available/default
-COPY ./tools/ssl.sh /tmp/
 
-EXPOSE 443
+COPY ./conf/www.conf /etc//etc/php/7.3/fpm/pool.d/
+COPY ./tools/wordpress_setup.sh /tmp/
 
-RUN chmod +x /tmp/ssl.sh
+EXPOSE 9000
 
-ENTRYPOINT [ "/tmp/ssl.sh" ]
-# ENTRYPOINT ["/bin/bash"]
-# CMD ["/bin/bash"]
-CMD [ "nginx", "-g", "daemon off;" ]
+RUN chmod +x /tmp/wordpress_setup.sh
+
+ENTRYPOINT [ "/tmp/wordpress_setup.sh" ]
+
+CMD [ "php-fpm7.3", "-F" ]
