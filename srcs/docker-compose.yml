@@ -4,7 +4,7 @@ services:
   mariadb:
     build: ./requirements/mariadb/
     container_name: mariadb
-    # images: mariadb
+    # image: mariadb
     ports:
       - 3306:3306
     env_file:
@@ -19,7 +19,7 @@ services:
       - mariadb
     build: ./requirements/wordpress/
     container_name: wordpress
-    # images: wordpress
+    # image: wordpress
     env_file:
       - .env
     networks:
@@ -32,7 +32,7 @@ services:
      - wordpress
     build: ./requirements/nginx/
     container_name: nginx
-    # images: nginx
+    # image: nginx
     ports:
       - 443:443
     # - target: 8080       ## 컨테이너 내부 포트
