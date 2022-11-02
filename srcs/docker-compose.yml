@@ -5,6 +5,8 @@ services:
     build: ./requirements/mariadb/
     container_name: mariadb
     # images: mariadb
+    ports:
+      - 3306:3306
     env_file:
       - .env
     networks:
@@ -32,7 +34,7 @@ services:
     container_name: nginx
     # images: nginx
     ports:
-      - "443:443"
+      - 443:443
     # - target: 8080       ## 컨테이너 내부 포트
     # published: 8080    ## 호스트OS에서 공개할 포트
     # protocol: tcp      ## 포트 프로토콜
@@ -59,4 +61,5 @@ volumes:
       device: /home/junyopar/data/db
 
 networks:
-  c_network: {}
+  c_network:
+    driver: bridge

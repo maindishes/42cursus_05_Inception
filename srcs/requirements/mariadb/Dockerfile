@@ -15,8 +15,9 @@ EXPOSE 3306
 RUN chmod +x /tmp/mariadb_setup.sh
 
 ENTRYPOINT [ "/tmp/mariadb_setup.sh" ]
-# ENTRYPOINT ["/bin/bash"]
+# ENTRYPOINT ["tail", "-f", "/dev/null"]/
 # CMD ["/bin/bash"]
 
 CMD ["mysqld"]
+# mysqld_safe와 차이점 
 #mysqld 는 mysql 이 멈춰있어야 된다.

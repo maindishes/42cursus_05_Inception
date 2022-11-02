@@ -10,7 +10,7 @@ chown -R www-data:www-data /var/www;
 # chmod 777 /var/www/wordpress;
 # 이방법 말고 wordpress 파일 권한을 www-data 한테 주는걸로~ chown 으로 해보자 
 
-#  얘가 깔려있는지 없는지 확인 해서 없을때만 깔기? 
+#  얘가 깔려있는지 없는지 확인 해서 없을때만 깔기? 안하면 또 깔게 되면 에러 난다.
 sudo -u www-data wp core download --path=/var/www/html/wordpress
 
 # mariadb에 있는 유저로 내 db로 연결 
