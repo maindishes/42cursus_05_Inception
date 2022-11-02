@@ -1,7 +1,33 @@
 version: "3.9"
 
 services:
+  mariadb:
+    build: ./requirements/mariadb/
+    container_name: mariadb
+    # images: mariadb
+    env_file:
+      - .env
+    networks:
+      - c_network
+    volumes:
+      - db:/var/lib/mysql
+
+  wordpress:
+    depends_on:
+      - mariadb
+    build: ./requirements/wordpress/
+    container_name: wordpress
+    # images: wordpress
+    env_file:
+      - .env
+    networks:
+      - c_network
+    volumes:
+      - wp:/var/www/html/wordpress
+
   nginx:
+    depends_on:
+     - wordpress
     build: ./requirements/nginx/
     container_name: nginx
     # images: nginx
@@ -14,31 +40,11 @@ services:
     env_file:
       - .env
     volumes:
-      - wp:/var/www/html
+      - wp:/var/www/html/wordpress
     networks:
       - c_network
 
-  # wordpress:
-  #   build: ./requirements/wordpress/
-  #   container_name: wordpress
-  #   # images: wordpress
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - c_network
-  #   volumes:
-  #     - wp:var/www/html/wordpress
 
-  mariadb:
-    build: ./requirements/mariadb/
-    container_name: mariadb
-    # images: mariadb
-    env_file:
-      - .env
-    networks:
-      - c_network
-    volumes:
-      - db:/var/lib/mysql
 
 volumes:
   wp:

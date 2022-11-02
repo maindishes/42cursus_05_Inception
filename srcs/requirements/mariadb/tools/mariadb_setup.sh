@@ -15,8 +15,9 @@ sleep 2;
 # 이건 mariadb의 유저를 만드는것이다. 또는 외부에서 접속 가능하게 하는 User만드는것 
 # wordpress 설정할때 mydb의 유저를 만드는것이고! 
 mysql -e "CREATE DATABASE IF NOT EXISTS $WP_DATABASE";
-mysql -e "GRANT ALL PRIVILEGES ON *.* TO $WP_ADMIN@'%' IDENTIFIED BY '$WP_ADMIN_PWD'";
-mysql -e "GRANT ALL PRIVILEGES ON $WP_DATABASE.* TO $WP_USER@'%' IDENTIFIED BY '$WP_USER_PWD'";
+# mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '$WP_ADMIN_PWD'";
+mysql -e "GRANT ALL PRIVILEGES ON *.* TO '$WP_ADMIN'@'%' IDENTIFIED BY '$WP_ADMIN_PWD'";
+mysql -e "GRANT ALL PRIVILEGES ON $WP_DATABASE.* TO '$WP_USER'@'%' IDENTIFIED BY '$WP_USER_PWD'";
 mysql -e "FLUSH PRIVILEGES";
 
 # mysql < /tmp/mysql.sql;
