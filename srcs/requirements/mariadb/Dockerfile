@@ -17,6 +17,6 @@ ENTRYPOINT [ "/tmp/mariadb_setup.sh" ]
 # ENTRYPOINT ["tail", "-f", "/dev/null"]/
 # CMD ["/bin/bash"]
 
-CMD ["mysqld"]
-# mysqld_safe와 차이점 
+CMD ["mysqld_safe"]
+# mysqld_safe와 mysqld차이점 
 #mysqld 는 mysql 이 멈춰있어야 된다.

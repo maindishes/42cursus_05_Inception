@@ -13,7 +13,7 @@ services:
       - c_network
     volumes:
       - db:/var/lib/mysql
-    restart: always
+    # restart: always
   wordpress:
     depends_on:
       - mariadb
@@ -28,7 +28,7 @@ services:
       - c_network
     volumes:
       - wp:/var/www/html/wordpress
-    restart: always
+    # restart: always
 
   nginx:
     depends_on:
@@ -48,7 +48,7 @@ services:
       - wp:/var/www/html/wordpress
     networks:
       - c_network
-    restart: always
+    # restart: always
 
 
 volumes:
