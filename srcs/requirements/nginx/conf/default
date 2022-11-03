@@ -29,34 +29,35 @@ server {
         root /var/www/html/wordpress;
 
         # Add index.php to the list if you are using PHP
-        index index.html index.htm index.nginx-debian.html;
+        index index.html index.htm index.nginx-debian.html index.htm index.php;
 
-      #   server_name {$DOMAIN_NAME};
-        server_name junyopar.42.fr;
+        server_name {$DOMAIN_NAME};
+      #   server_name junyopar.42.fr;
 
         location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
-                try_files $uri $uri/ =404;
+            #     try_files $uri $uri/ =404;
+                  try_files $uri $uri/ /index.php$is_args$args;
         }
 
         # pass PHP scripts to FastCGI server
         # ref : https://www.nginx.com/resources/wiki/start/topics/examples/phpfcgi/
         location ~ \.php$ 
         {
-              # include /etc/nginx/fastcgi_params;
+              include /etc/nginx/fastcgi_params;
         #       include snippets/fastcgi-php.conf;
               # try_files $uri =404;
               # With php-fpm (or other unix sockets):
         #       fastcgi_pass unix:/run/php/php7.3-fpm.sock;
               # With php-cgi (or other tcp sockets):
-              fastcgi_split_path_info ^(.+\.php)(/.+)$;
+            #   fastcgi_split_path_info ^(.+\.php)(/.+)$;
               fastcgi_pass wordpress:9000;
               fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
               fastcgi_index index.php;
 
               # include the fastcgi_param setting
-              include fastcgi_params;
+            #   include fastcgi_params;
         }
 
         # deny access to .htaccess files, if Apache's document root

@@ -15,8 +15,8 @@ sudo -u www-data wp core download --path=/var/www/html/wordpress
 
 # mariadb에 있는 유저로 내 db로 연결 
 sudo -u www-data wp config create --dbname=$WP_DATABASE --dbuser=$WP_ADMIN --dbpass=$WP_ADMIN_PWD --dbhost=mariadb --path=/var/www/html/wordpress
-sudo -u www-data wp core install --url="$WP_URL" --title="$WP_TITLE" --admin_user="$WP_ADMIN_USER" --admin_password="$WP_ADMIN_PWD" --admin_email="$WP_ADMIN_EMAIL" --skip-email --path=/var/www/html/wordpress
-
+sudo -u www-data wp core install --url=$DOMAIN_NAME --title=$WP_TITLE --admin_user=$WP_ADMIN --admin_password=$WP_ADMIN_PWD --admin_email=$WP_ADMIN_EMAIL --skip-email --path=/var/www/html/wordpress
+sudo -u www-data wp user create $WP_USER $WP_USER_EMAIL --user_pass=$WP_USER_PWD --role=author --path=/var/www/html/wordpress
 
 # create the PID file(/run/php/php7.3-fpm.pid)
 service php7.3-fpm start

@@ -6,7 +6,7 @@ LABEL email="42.4.junyopar@gmail.com"
 RUN apt-get update
 RUN apt-get install -y nginx openssl
 
-COPY ./conf/nginx.conf /etc/nginx/sites-available/default
+COPY ./conf/default /etc/nginx/sites-available/
 COPY ./tools/ssl.sh /tmp/
 
 EXPOSE 443
