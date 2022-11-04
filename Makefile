@@ -40,6 +40,6 @@ stop:
 	@ echo "$(GREEN)docker compose stop ... $(RESET)"
 	@ sudo docker compose -f $(COMPOSE_FILE) stop
 
-re: fclean up
+re: fclean build up
 
 .PHONY: up,build,re,stop,down,fclean,clean,nlist,vlist,cps, cpsa,ilist
