@@ -26,7 +26,7 @@ vlist:
 
 # network ls
 nlist:
-	docker network ls
+	sudo docker network ls
 clean:
 	@ echo "$(GREEN)clean ... $(RESET)"
 	@./clean.sh
